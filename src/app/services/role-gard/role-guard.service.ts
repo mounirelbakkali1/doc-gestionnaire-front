@@ -11,7 +11,9 @@ export class RoleGuardService {
   constructor(public auth: AuthServiceService, public router: Router) {}
   canActivate(route: ActivatedRouteSnapshot): boolean {
     const data: any = route.data;
-    const expectedRole: any = data.expectedRole;
+    let expectedRole: any = data.expectedRole;
+    console.log(expectedRole);
+
     return this.validateRole(expectedRole);
   }
 
@@ -22,7 +24,7 @@ export class RoleGuardService {
       !this.auth.isAuthenticated() ||
       !tokenPayload.roles.some((role) => role.name === expectedRole)
     ) {
-      this.router.navigate(['login']);
+      //this.router.navigate(['']);
       return false;
     }
     return true;

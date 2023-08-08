@@ -20,32 +20,35 @@ export class ListDocumentsComponent implements OnInit {
   }
 
   onKeywordChange(newValue: string) {
-    this.documents = this.documents.filter((document) =>
-      document.titre.toLowerCase().includes(newValue.toLowerCase())
-    );
+    this.keyword = newValue;
+    this.getDocuments;
   }
   onAddDocument(title: string) {
-    console.log('parent : ' + title);
-
-    this.documents.push({
-      id: this.documents.length + 1,
-      titre: title,
-    });
+    if (title === '') return;
+    this.documentService
+      .addDocument({ titre: title } as Document)
+      .subscribe((res) => {
+        console.log(res);
+        this.fetchDocs();
+      });
     this.isCreateShown = false;
   }
   onDeleteDocument(id: number) {
-    this.documents.splice(
-      this.documents.findIndex((document) => document.id === id),
-      1
-    );
+    this.documentService.deleteDocument(id).subscribe((doc) => {
+      this.fetchDocs();
+    });
+    this.fetchDocs();
   }
   constructor(private documentService: DocumentServiceService) {}
   ngOnInit(): void {
-    this.documentService.getDocuments().subscribe((docs) => {
-      this.documents = docs;
-    });
+    this.fetchDocs();
   }
   onCreateClick() {
     this.isCreateShown = true;
+  }
+  fetchDocs() {
+    this.documentService.getDocuments().subscribe((docs) => {
+      this.documents = docs;
+    });
   }
 }

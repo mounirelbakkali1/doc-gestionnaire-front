@@ -11,7 +11,7 @@
   <div class="flex-1 ">
     <div class="flex flex-wrap gap-3">
          <div *ngFor="let doc of getTypeDocuments()" class="w-64">
-            <app-document [document]="doc" (onDeleteDocumentEvent)="onDeleteTypeDocument($event)"></app-document>
+            <app-document [typeDocument]="doc" (onDeleteDocumentEvent)="onDeleteTypeDocument($event)"></app-document>
         </div>
     </div>
   </div>

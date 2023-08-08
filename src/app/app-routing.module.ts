@@ -21,7 +21,6 @@ const routes: Routes = [
   {
     path: '',
     component: HomePageComponent,
-    canActivate: [AuthGuardService],
   },
   {
     path: 'login',
@@ -45,6 +44,11 @@ const routes: Routes = [
     },
     children: [
       {
+        path: '',
+        redirectTo: 'create-demande',
+        pathMatch: 'full',
+      },
+      {
         path: 'create-demande',
         component: CreateDemandeComponent,
       },
@@ -62,6 +66,11 @@ const routes: Routes = [
       expectedRole: 'ROLE_ADMIN',
     },
     children: [
+      {
+        path: '',
+        redirectTo: 'documents',
+        pathMatch: 'full',
+      },
       {
         path: 'documents',
         component: ListDocumentsComponent,

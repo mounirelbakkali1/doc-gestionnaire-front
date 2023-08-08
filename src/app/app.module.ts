@@ -13,7 +13,7 @@ import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { HomePageComponent } from './components/home-page/home-page.component';
 import { DocumentComponent } from './components/document/document.component';
 import { SearchDocumentComponent } from './components/search-document/search-document.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ReferencementComponent } from './components/referencement/referencement.component';
 import { ParametresComponent } from './components/parametres/parametres.component';
@@ -60,6 +60,7 @@ export function tokenGetter(): string | null {
         tokenGetter: tokenGetter,
       },
     }),
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

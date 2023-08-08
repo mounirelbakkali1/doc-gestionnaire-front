@@ -1,1 +1,42 @@
-<p>demande-document-references works!</p>
+
+
+
+<!-- form that shows two select boxes, one for type demande and the other for documents required for that type demande -->
+<h1 class="text-3xl text-center mb-4">create new reference</h1>
+
+<form>
+    <div *ngIf="created" class=" mb-6 bg-teal-100 border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-3 shadow-md" role="alert">
+  <div class="flex">
+            <div class="py-1"><svg class="fill-current h-6 w-6 text-teal-500 mr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z"/></svg></div>
+            <div>
+            <p class="font-bold">Reference created!</p>
+            <p class="text-sm">Reference created between type demande & type document required</p>
+            </div>
+        </div>
+        </div>
+        <div *ngIf="isErrorWhileCreating" class=" mb-6 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+        <strong class="font-bold">Error while creating reference !</strong>
+        <span class="block sm:inline">Something seriously bad happened.</span>
+        <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
+            <svg class="fill-current h-6 w-6 text-red-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Close</title><path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/></svg>
+        </span>
+        </div>
+
+     <div class="mb-6">
+        <label for="titre" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Type de Demande <span class="text-blue-500">*</span></label>
+        <select [(ngModel)]="reference.idTypeDemande" [ngModelOptions]="{standalone: true}"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+            <option  value="" disabled>select type demande</option>
+            <option *ngFor="let td of typeDemandes" [ngValue]="td.id">{{td.typedemande}}</option>
+        </select>
+    </div>
+    <div class="mb-6">
+        <label for="titre" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Type de Demande <span class="text-blue-500">*</span></label>
+        <select [(ngModel)]="reference.idDocumentsRequis" [ngModelOptions]="{standalone: true}"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required multiple>
+            <option  value="" disabled>select type document requis</option>
+            <option *ngFor="let td of typeDocuments" [ngValue]="td.id">{{td.typedocument}}</option>
+        </select>
+    </div>
+
+    <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" (click)="onSaveReference()">save reference</button>
+</form>
+

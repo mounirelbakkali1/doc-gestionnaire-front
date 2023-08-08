@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Document } from 'src/app/interfaces/Document';
+import { Document, TypeDocument } from 'src/app/interfaces/Document';
 @Component({
   selector: 'app-document',
   templateUrl: './document.component.html',
@@ -9,6 +9,10 @@ export class DocumentComponent {
   @Input() document: Document = {
     id: 0,
     titre: '',
+  };
+  @Input() typeDocument: TypeDocument = {
+    id: 0,
+    typedocument: '',
   };
 
   @Output() onDeleteDocumentEvent = new EventEmitter<number>();

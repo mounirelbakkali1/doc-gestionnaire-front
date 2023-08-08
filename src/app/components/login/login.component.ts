@@ -22,13 +22,14 @@ export class LoginComponent {
     this.authService.login(user).subscribe(
       (loggedIn: boolean) => {
         if (loggedIn) {
-          // TODO : login success notification
-          window.location.href = '/';
+          window.location.href = '';
         } else {
           this.loginError = true;
         }
       },
-      (error) => {}
+      (error) => {
+        this.loginError = true;
+      }
     );
   }
 }

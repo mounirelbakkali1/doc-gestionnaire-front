@@ -1,3 +1,4 @@
+import { TypeDemande } from './../../interfaces/Document';
 import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
@@ -6,12 +7,12 @@ import { Component, EventEmitter, Output } from '@angular/core';
   styleUrls: ['./create-type-document.component.css'],
 })
 export class CreateTypeDocumentComponent {
-  @Output() onAddDocument = new EventEmitter<string>();
+  @Output() onAddTypeDocument = new EventEmitter<string>();
 
-  title = '';
+  Typedocument = '';
 
   onAddTypeDocumentClick() {
-    if (this.title.trim() === '') return;
-    this.onAddDocument.emit(this.title);
+    if (this.Typedocument.trim() === '') return;
+    this.onAddTypeDocument.emit(this.Typedocument);
   }
 }

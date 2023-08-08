@@ -1,1 +1,60 @@
-<p>create-demande works!</p>
+
+<button  class="mb-6 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" (click)="createNewDemande()">create new demande</button>
+
+<form *ngIf="isCreateClicked">
+    <div class="mb-6">
+        <label for="titre" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Title <span class="text-blue-500">*</span></label>
+        <input [(ngModel)]="demande.title" [ngModelOptions]="{standalone: true}" type="text" id="titre" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="demande de congé" required>
+    </div> 
+
+     <div class="mb-6">
+        <label for="titre" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Type de Demande <span class="text-blue-500">*</span></label>
+        <select [(ngModel)]="demande.typeDemande" [ngModelOptions]="{standalone: true}"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+            <option  value="" disabled>select type demande</option>
+            <option *ngFor="let td of typeDemandes" [ngValue]="td">{{td.typedemande}}</option>
+        </select>
+    </div>
+    <div class="bg-gray-200 mb-6 p-3 rounded" *ngIf="demande.typeDemande.typedemande != ''">
+        <label for="titre" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Documents requis </label>
+        <ul class="list-disc list-inside">
+            <li *ngFor="let doc of demande.typeDemande.documentsRequired">{{doc.typedocument}}</li>
+        </ul>
+    </div>
+     <div class="mb-6">
+        <label for="titre" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description <span class="text-blue-500">*</span></label>
+        <textarea [(ngModel)]="demande.description" [ngModelOptions]="{standalone: true}"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="summarized description" required></textarea>
+    </div>
+    <div class="mb-6">
+        <label for="files" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Documents attachés <span class="text-blue-500">*</span></label>
+          <!-- <input type="file" (change)="onFileSelected($event)" multiple> -->
+          <select multiple [(ngModel)]="demande.documentsAttache" [ngModelOptions]="{standalone: true}"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+            <option  value="" disabled>select documents</option>
+            <option *ngFor="let doc of documents" [ngValue]="doc">{{doc.titre}}</option>
+        </select>
+    </div> 
+    
+
+
+    <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" (click)="onAddDemandeClick()">Submit</button>
+</form>
+
+
+
+<!-- card that displays the list of type demandes -->
+<div class="flex mb-6  gap-6 mt-6 ">
+    <div *ngFor="let d of demandes" class="w-full max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-md dark:bg-gray-800">
+        <div class="px-4 py-2">
+            <h1 class="text-3xl font-bold text-gray-800 uppercase dark:text-white">{{d.title}}</h1>
+            <h1 class="text-3xl font-bold text-gray-800 uppercase dark:text-white">{{d.typeDemande.typedemande}}</h1>
+            <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">{{d.description}}</p>
+        </div>
+        <img class="object-cover w-full h-48 mt-2" src="https://images.unsplash.com/photo-1557683316-973673baf926?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Y29uZ2VhdXxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&w=1000&q=80" alt="avatar">
+        <div class="flex items-center justify-between px-4 py-2 bg-gray-900">
+            <h1 class="text-lg font-bold text-white">{{d.documentsAttache.length}} documents atttachés</h1>
+            <button *ngIf="!view" class="px-2 py-1 text-xs font-bold text-white uppercase transition-colors duration-200 transform bg-blue-500 rounded hover:bg-blue-400 focus:bg-blue-600 focus:outline-none" (click)="viewDocumentsAttached(d.id)">view</button>
+        </div>
+           <ul class="p-3" *ngIf="view">
+                <li class="text-lg font-bold " *ngFor="let item of documentsAttached">{{item.titre}}</li>
+            </ul>
+    </div>
+</div>
